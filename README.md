@@ -1,6 +1,6 @@
-# tf-demo-python-hello-world
+# %CUSTOM_PLUGIN_SERVICE_NAME%
 
-Simple Python Flask hello world application for Azure App Service deployment.
+%CUSTOM_PLUGIN_SERVICE_DESCRIPTION%
 
 ## Local Development
 

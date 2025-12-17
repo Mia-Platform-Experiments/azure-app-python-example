@@ -31,7 +31,7 @@ jobs:
       
       - name: Create deployment package
         run: |
-          zip tf-demo-python-hello-world-${{ github.sha }}.zip app.py requirements.txt
+          zip %CUSTOM_PLUGIN_SERVICE_NAME%-${{ github.sha }}.zip app.py requirements.txt
       
       - name: Azure Login
         uses: azure/login@v2
@@ -44,8 +44,8 @@ jobs:
           az storage blob upload \
             --account-name ${{ secrets.AZURE_HCPTFDEMO_STORAGE_ACCOUNT }} \
             --container-name hcptfdemo-artifacts \
-            --name tf-demo-python-hello-world/tf-demo-python-hello-world-${{ github.sha }}.zip \
-            --file tf-demo-python-hello-world-${{ github.sha }}.zip \
+            --name %CUSTOM_PLUGIN_SERVICE_NAME%/%CUSTOM_PLUGIN_SERVICE_NAME%-${{ github.sha }}.zip \
+            --file %CUSTOM_PLUGIN_SERVICE_NAME%-${{ github.sha }}.zip \
             --auth-mode login \
             --overwrite
           
@@ -53,10 +53,10 @@ jobs:
           az storage blob upload \
             --account-name ${{ secrets.AZURE_HCPTFDEMO_STORAGE_ACCOUNT }} \
             --container-name hcptfdemo-artifacts \
-            --name tf-demo-python-hello-world/tf-demo-python-hello-world-latest.zip \
-            --file tf-demo-python-hello-world-${{ github.sha }}.zip \
+            --name %CUSTOM_PLUGIN_SERVICE_NAME%/%CUSTOM_PLUGIN_SERVICE_NAME%-latest.zip \
+            --file %CUSTOM_PLUGIN_SERVICE_NAME%-${{ github.sha }}.zip \
             --auth-mode login \
             --overwrite
           
-          echo "Package uploaded: tf-demo-python-hello-world-${{ github.sha }}.zip"
-          echo "Latest alias: https://${{ secrets.AZURE_HCPTFDEMO_STORAGE_ACCOUNT }}.blob.core.windows.net/hcptfdemo-artifacts/tf-demo-python-hello-world/tf-demo-python-hello-world-latest.zip"
+          echo "Package uploaded: %CUSTOM_PLUGIN_SERVICE_NAME%-${{ github.sha }}.zip"
+          echo "Latest alias: https://${{ secrets.AZURE_HCPTFDEMO_STORAGE_ACCOUNT }}.blob.core.windows.net/hcptfdemo-artifacts/%CUSTOM_PLUGIN_SERVICE_NAME%/%CUSTOM_PLUGIN_SERVICE_NAME%-latest.zip"
